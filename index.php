@@ -29,14 +29,25 @@
             <ul class="nav nav-pills nav-stacked">
               <li><a data-name="Main" href="?room=Main">Main</a></li>
             </ul>
-            <div id="uploadFile">
+            <div class="uploadFile">
               <form action="upload.php" method="post" enctype="multipart/form-data">
-                <input type="file" id="fileSelect" name="file"></input>
+                <h3>Group Chatbot</h3>
+                <input type="hidden" name="chatbot_type" value="group"></input>
+                <input type="file" name="file"></input>
                 <br>
                 <button type="submit" id="btnUpload" class="btn btn-primary">Upload</button>
               </form>
-              <a href="notes.html">Need some pointers to make your own chatbot?</a>
             </div>
+            <div class="uploadFile">
+              <form action="upload.php" method="post" enctype="multipart/form-data">
+                <h3>One on One Chatbot</h3>
+                <input type="hidden" name="chatbot_type" value="single"></input>
+                <input type="file" name="file"></input>
+                <br>
+                <button type="submit" class="btn btn-primary">Upload</button>
+              </form>
+            </div>
+            <a href="notes.html">Need some pointers to make your own chatbot?</a>
           </div>
         </div>
         <div class="col-sm-9">
@@ -124,9 +135,9 @@
       }
 
       function checkMessages() {
-        var num_messages = $(".message").length;
-        console.log('Checking for new messages - current messages:', num_messages);
-        $.post("sender.py", {room: room, num_messages: num_messages}, function (data) {
+        var last_message = $(".message:first-child").data('time') || '';
+        console.log('Checking for new messages - last message:', last_message);
+        $.post("sender.py", {room: room, last_message: last_message}, function (data) {
           if (data == 'No new messages') {
             console.log('No new messages\n');
           } else {
@@ -134,7 +145,7 @@
             var messages = JSON.parse(data);
             console.log('Received', messages.length, 'new messages\n');
             messages.forEach(function (message) {
-              $("#messages").prepend('<div class="message"><i>('+message.message_time+') </i><b>'+message.user+': </b>'+message.message+'</div>');
+              $("#messages").prepend('<div class="message" data-time="'+message.message_time+'"><i>('+message.message_time+') </i><b>'+message.user+': </b>'+message.message+'</div>');
             });
           }
           checkMessages();
