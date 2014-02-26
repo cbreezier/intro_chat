@@ -18,7 +18,7 @@ returnedMessages = []
 dateTimeFormat = "%I:%M:%S %d/%m/%y"
 for object in cursor.execute("SELECT object FROM messages"):
     message = pickle.loads(str(object[0]))
-    if not "last_message" in postvars or message["timestamp"] > datetime.datetime.strptime(postvars["last_message"], dateTimeFormat):
+    if not "last_message" in postvars or message["timestamp"] > datetime.datetime.strptime(postvars["last_message"].value, dateTimeFormat):
         message["message_time"] = message["timestamp"].strftime(dateTimeFormat)
         message.pop("timestamp")
         returnedMessages.append(message)
