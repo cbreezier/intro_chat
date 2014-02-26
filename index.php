@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="main.css">
 
     <script src="https://code.jquery.com/jquery.js"></script>
+    <title>Chatbot Room <?=$room?></title>
   </head>
   <body>
     <div class="container">
@@ -34,6 +35,7 @@
                 <br>
                 <button type="submit" id="btnUpload" class="btn btn-primary">Upload</button>
               </form>
+              <a href="notes.html">Need some pointers to make your own chatbot?</a>
             </div>
           </div>
         </div>
@@ -71,7 +73,7 @@
           var message = $("#message").val();
           $("#message").val('');
 
-          $.post("http://162.243.223.110:9444", {room: room, user: '<?=$user?>', message: message}, function (data) {
+          $.post("receiver.py", {room: room, user: '<?=$user?>', message: message}, function (data) {
             console.log(data);
           });
         }
@@ -124,7 +126,7 @@
       function checkMessages() {
         var num_messages = $(".message").length;
         console.log('Checking for new messages - current messages:', num_messages);
-        $.post("http://162.243.223.110:9445", {room: room, num_messages: num_messages}, function (data) {
+        $.post("sender.py", {room: room, num_messages: num_messages}, function (data) {
           if (data == 'No new messages') {
             console.log('No new messages\n');
           } else {
