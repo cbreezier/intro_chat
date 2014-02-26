@@ -10,6 +10,7 @@ import datetime
 import time
 
 postvars = cgi.FieldStorage()
+# open("debug2.txt", "w").write(str(postvars))
 # postvars = {}
 connection = sqlite3.connect("messages.db")
 cursor = connection.cursor()
