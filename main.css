@@ -9,7 +9,7 @@ body {
   overflow-y: scroll;
 }
 
-#botList {
+.bot-list {
   padding-top: 80px;
 }
 
@@ -18,4 +18,9 @@ body {
   border-radius: 5px;
   padding: 20px;
   margin-top: 20px;
+}
+
+.custom-container {
+  padding-left: 200px;
+  padding-right: 200px;
 }

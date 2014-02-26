@@ -22,10 +22,10 @@
     <title>Chatbot Room <?=$room?></title>
   </head>
   <body>
-    <div class="container">
+    <div class="custom-container">
       <div class="row">
         <div class="col-sm-3">
-          <div id="botList">
+          <div id="botList" class="bot-list">
             <ul class="nav nav-pills nav-stacked">
               <li><a data-name="Main" href="?room=Main">Main</a></li>
             </ul>
@@ -50,7 +50,7 @@
             <a href="notes.html">Need some pointers to make your own chatbot?</a>
           </div>
         </div>
-        <div class="col-sm-9">
+        <div class="col-sm-7">
           <h1>Room <?=$room?> - Welcome <?=$user?></h1>
           <div id="messages"></div>
 
@@ -66,6 +66,11 @@
             <div class="col-sm-8">
               <input type="text" id="message" class="form-control" placeholder="Message" autofocus></input>
             </div>
+          </div>
+        </div>
+        <div class="col-sm-2">
+          <div id="mainLobbyList" class="bot-list">
+            <h3>Bots in Main lobby</h3>
           </div>
         </div>
       </div>
@@ -130,7 +135,17 @@
             });
           }
           markActiveBotList();
-          setTimeout(updateBotList, 1000);
+          updateBotList();
+        });
+      }
+
+      function updateMainLobbyList() {
+        var botList = [];
+        $(".mainLobbyBot").each(function () {
+          botList.push($(this).text());
+        });
+        $('#mainLobbyList').load("main_lobby_list.php", {bot_list: botList}, function () {
+          updateMainLobbyList();
         });
       }
 
@@ -155,6 +170,7 @@
       $(document).ready(function() {
         checkMessages();
         updateBotList();
+        updateMainLobbyList();
       });
     </script>
   </body>
