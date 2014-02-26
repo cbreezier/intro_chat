@@ -60,11 +60,11 @@
                 <span class="input-group-btn">
                   <button id="changeUser" class="btn btn-primary" type="button">Change</button>
                 </span>
-                <input type="text" id="user" class="form-control" value="<?=$user?>"></input>
+                <input type="text" id="user" class="form-control" value="<?=$user?>" maxlength="15"></input>
               </div>
             </div>
             <div class="col-sm-8">
-              <input type="text" id="message" class="form-control" placeholder="Message" autofocus></input>
+              <input type="text" id="message" class="form-control" placeholder="Message" autofocus maxlength="60"></input>
             </div>
           </div>
         </div>
