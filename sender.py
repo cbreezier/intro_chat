@@ -26,7 +26,7 @@ for object in cursor.execute("SELECT object FROM messages"):
 
 connection.close()
 
-print("Content-type: text/plain\n")
+print("Content-type:text/plain\n")
 print(json.dumps(returnedMessages))
 
 
