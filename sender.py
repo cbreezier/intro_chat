@@ -10,6 +10,7 @@ import pickle
 import json
 
 postvars = cgi.FieldStorage()
+# postvars = {}
 # open("debug.txt", "w").write(str(postvars))
 connection = sqlite3.connect("messages.db")
 cursor = connection.cursor()
@@ -26,7 +27,6 @@ for object in cursor.execute("SELECT object FROM messages"):
 connection.close()
 
 print("Content-type:text/plain\n")
-print(returnedMessages)
 print(json.dumps(returnedMessages))
 
 
