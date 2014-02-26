@@ -130,7 +130,7 @@
             });
           }
           markActiveBotList();
-          setTimeout(updateBotList, 1000);
+          updateBotList();
         });
       }
 
