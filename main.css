@@ -1,4 +1,21 @@
+body {
+  padding-top: 70px;
+}
+
 #messages {
-  height: 60%;
-  overflow: scroll;
+  height: 600px;
+  margin: 10px;
+  padding: 10px;
+  overflow-y: scroll;
+}
+
+#botList {
+  padding-top: 80px;
+}
+
+#uploadFile {
+  background-color: #CCCCCC;
+  border-radius: 5px;
+  padding: 20px;
+  margin-top: 100px;
 }
