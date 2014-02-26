@@ -80,9 +80,43 @@
       function markActiveBotList() {
         $("#botList li").removeClass('active');
         $("#botList a").filter(function () {
-          console.log($(this).text(), room);
           return $(this).text() === room;
         }).parent().addClass('active');
+      }
+
+      function updateBotList() {
+        console.log('Updating bot list');
+        var botList = [];
+        $("#botList a").each(function () {
+          var name = $(this).text();
+          var time = $(this).data('time');
+          if (name == 'Main') {
+            return;
+          }
+          botList.push({name: name, time: time});
+        });
+        $.post("bot_status.php", {bot_list: botList}, function (data) {
+          if (data) {
+            var botList = JSON.parse(data);
+            botList.forEach(function (bot) {
+              if (bot.status == 'deleted') {
+                $("#botList a").filter(function () {
+                  return $(this).text() === bot.name;
+                }).parent().remove();
+              }
+              if (bot.status == 'updated') {
+                $("#botList a").filter(function () {
+                  return $(this).text() === bot.name;
+                }).data('time', bot.time);
+              }
+              if (bot.status == 'new') {
+                $("#botList ul").append('<li><a data-time="'+bot.time+'" href="?room='+bot.name+'">'+bot.name+'</a></li>');
+              }
+            });
+          }
+          markActiveBotList();
+          setTimeout(updateBotList, 5000);
+        });
       }
 
       function checkMessages() {
@@ -98,9 +132,6 @@
             messages.forEach(function (message) {
               $("#messages").prepend('<div class="message"><i>('+message.message_time+') </i><b>'+message.user+': </b>'+message.message+'</div>');
             });
-
-            // TODO move/change
-            markActiveBotList();
           }
           checkMessages();
         });
@@ -108,6 +139,7 @@
 
       $(document).ready(function() {
         checkMessages();
+        updateBotList();
       });
     </script>
   </body>

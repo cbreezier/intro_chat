@@ -1,0 +1,2 @@
+AddType application/x-setuid-php php
+Action application/x-setuid-php /cgi-bin/php5-cgiwrap
