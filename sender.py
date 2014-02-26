@@ -9,8 +9,8 @@ postvars = cgi.FieldStorage()
 connection = sqlite3.connect("messages.db")
 cursor = connection.cursor()
 
-newMessage = Message(postvars["user"], postvars["message"], datetime.datetime.now())
 
-cursor.execute("INSERT INTO messages '{}'".format(pickle.dumps(newMessage)))
-connection.commit()
+
+cursor.execute("SELECT object FROM messages {}".format()
 connection.close()
+

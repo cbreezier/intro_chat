@@ -9,7 +9,7 @@ import pickle
 import datetime
 
 class Message(object):
-    def __init__(user, message, time):
+    def __init__(self, user, message, time):
         self.user = user
         self.message = message
         self.time = time
