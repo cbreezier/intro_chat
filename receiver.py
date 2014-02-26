@@ -17,7 +17,7 @@ cursor = connection.cursor()
 
 newMessage = Message(postvars["user"], postvars["message"], datetime.datetime.now())
 
-cursor.execute("INSERT INTO messages '%s'" % (pickle.dumps(newMessage)))
+cursor.execute("INSERT INTO messages '" + (pickle.dumps(newMessage)) + "';")
 connection.commit()
 connection.close()
 
