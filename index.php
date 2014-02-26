@@ -1,10 +1,13 @@
 <?php
   session_start();
-  $room = isset($_GET['room']) ? $_GET['room']:'Main';
-  if (isset($_GET['user'])) {
-    $_SESSION['liveChatUser'] = $_GET['user'];
+  if (isset($_GET['room'])) {
+    $_SESSION['room'] = $_GET['room'];
   }
-  $user = isset($_SESSION['liveChatUser']) ? $_SESSION['liveChatUser']:'User';
+  $room = isset($_SESSION['room']) ? $_SESSION['room']:'Main';
+  if (isset($_GET['user'])) {
+    $_SESSION['user'] = $_GET['user'];
+  }
+  $user = isset($_SESSION['user']) ? $_SESSION['user']:'User';
 ?>
 <!DOCTYPE html>
 <html>
@@ -19,26 +22,44 @@
   </head>
   <body>
     <div class="container">
-      <h1>Room <?=$room?> - Welcome <?=$user?></h1>
-      <div id="messages"></div>
-
-      <table>
-        <tr>
-          <td style="width: 20%;">
-            <div class="input-group">
-              <span class="input-group-btn">
-                <button id="changeUser" class="btn btn-primary" type="button">Change</button>
-              </span>
-              <input type="text" id="user" class="form-control" value="<?=$user?>"></input>
+      <div class="row">
+        <div class="col-sm-3">
+          <div id="botList">
+            <ul class="nav nav-pills nav-stacked">
+              <li><a data-name="Main" href="?room=Main">Main</a></li>
+            </ul>
+            <div id="uploadFile">
+              <form action="upload.php" method="post" enctype="multipart/form-data">
+                <input type="file" id="fileSelect" name="file"></input>
+                <br>
+                <button type="submit" id="btnUpload" class="btn btn-primary">Upload</button>
+              </form>
             </div>
-          </td>
-          <td style="width: 80%;">
-            <input type="text" id="message" class="form-control" placeholder="Message" autofocus></input>
-          </td>
-        </tr>
-      </table>
+          </div>
+        </div>
+        <div class="col-sm-9">
+          <h1>Room <?=$room?> - Welcome <?=$user?></h1>
+          <div id="messages"></div>
+
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="input-group">
+                <span class="input-group-btn">
+                  <button id="changeUser" class="btn btn-primary" type="button">Change</button>
+                </span>
+                <input type="text" id="user" class="form-control" value="<?=$user?>"></input>
+              </div>
+            </div>
+            <div class="col-sm-8">
+              <input type="text" id="message" class="form-control" placeholder="Message" autofocus></input>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <script>
+      var room = '<?=$room?>';
+
       $("#changeUser").click(function (e) {
         var user = $("#user").val();
         window.location.href = '?user='+user;
@@ -50,16 +71,60 @@
           var message = $("#message").val();
           $("#message").val('');
 
-          $.post("http://162.243.223.110:9444", {room: '<?=$room?>', user: '<?=$user?>', message: message}, function (data) {
+          $.post("http://162.243.223.110:9444", {room: room, user: '<?=$user?>', message: message}, function (data) {
             console.log(data);
           });
         }
       });
 
+      function markActiveBotList() {
+        $("#botList li").removeClass('active');
+        $("#botList a").filter(function () {
+          return $(this).data('name') === room;
+        }).parent().addClass('active');
+      }
+
+      function updateBotList() {
+        var botList = [];
+        $("#botList a").each(function () {
+          var name = $(this).data('name');
+          var time = $(this).data('time');
+          if (name == 'Main') {
+            return;
+          }
+          botList.push({name: name, time: time});
+        });
+        $.post("bot_status.php", {bot_list: botList}, function (data) {
+          if (data) {
+            var botList = JSON.parse(data);
+            botList.forEach(function (bot) {
+              if (bot.status == 'deleted') {
+                $("#botList a").filter(function () {
+                  return $(this).data('name') === bot.name;
+                }).parent().remove();
+              }
+              if (bot.status == 'updated') {
+                $("#botList a").filter(function () {
+                  return $(this).data('name') === bot.name;
+                }).data('time', bot.time).empty().append(bot.name+'<span class="badge pull-right">Updated</span>');
+              }
+              if (bot.status == 'new') {
+                $("#botList ul").append('<li><a data-time="'+bot.time+'" data-name="'+bot.name+'" href="?room='+bot.name+'">'+bot.name+'<span class="badge pull-right">New</span></a></li>');
+              }
+              if (bot.status == 'first') {
+                $("#botList ul").append('<li><a data-time="'+bot.time+'" data-name="'+bot.name+'" href="?room='+bot.name+'">'+bot.name+'</a></li>');
+              }
+            });
+          }
+          markActiveBotList();
+          setTimeout(updateBotList, 1000);
+        });
+      }
+
       function checkMessages() {
         var num_messages = $(".message").length;
         console.log('Checking for new messages - current messages:', num_messages);
-        $.post("http://162.243.223.110:9445", {room: '<?=$room?>', num_messages: num_messages}, function (data) {
+        $.post("http://162.243.223.110:9445", {room: room, num_messages: num_messages}, function (data) {
           if (data == 'No new messages') {
             console.log('No new messages\n');
           } else {
@@ -76,6 +141,7 @@
 
       $(document).ready(function() {
         checkMessages();
+        updateBotList();
       });
     </script>
   </body>
