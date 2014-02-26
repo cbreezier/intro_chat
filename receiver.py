@@ -21,4 +21,5 @@ cursor.execute("INSERT INTO messages VALUES(?);", (pickle.dumps(newMessage),))
 connection.commit()
 connection.close()
 
+print("Content-type:text/plain\n")
 print("success")
