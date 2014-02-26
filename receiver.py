@@ -1,8 +1,5 @@
 #!/usr/bin/python
 
-import cgitb
-cgitb.enable()
-
 import cgi
 import sqlite3
 import pickle
