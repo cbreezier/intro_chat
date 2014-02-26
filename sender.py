@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 import cgitb
-# cgitb.enable()
+cgitb.enable()
 
 import cgi
 import sqlite3
@@ -17,7 +17,7 @@ returnedMessages = []
 dateTimeFormat = "%I:%M:%S %d/%m/%y"
 for object in cursor.execute("SELECT object FROM messages"):
     message = pickle.loads(object[0])
-    if not postvars["message_time"] or message["timestamp"] > datetime.datetime.strptime(postvars["message_time"], dateTimeFormat):
+    if not postvars["message_time"] or message["timestamp"] > datetime.datetime.strptime(postvars["message_time"].value, dateTimeFormat):
         message["message_time"] = message["timestamp"].strftime(dateTimeFormat)
         message.pop("timestamp")
         returnedMessages.append(message)
