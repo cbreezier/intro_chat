@@ -19,8 +19,12 @@ cursor = connection.cursor()
 # postvars["message"] = "test"
 newMessage = {"user": postvars["user"].value, "message": postvars["message"].value, "timestamp": datetime.datetime.now()}
 cursor.execute("INSERT INTO messages VALUES(?);", (pickle.dumps(newMessage),))
+connection.commit()
+connection.close()
 
-time.sleep(0.1) # to get greater timestamp
+time.sleep(0.5) # bot delay
+connection = sqlite3.connect("messages.db")
+cursor = connection.cursor()
 newMessage2 = {"user": "pythonbot", "message": "%s is a retard" % postvars["user"].value, "timestamp": datetime.datetime.now()}
 cursor.execute("INSERT INTO messages VALUES(?);", (pickle.dumps(newMessage2),))
 
