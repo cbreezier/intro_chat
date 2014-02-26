@@ -16,6 +16,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap -->
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/3.1.0/css/jasny-bootstrap.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/3.1.0/js/jasny-bootstrap.min.js"></script>
     <link rel="stylesheet" href="main.css">
 
     <script src="https://code.jquery.com/jquery.js"></script>
@@ -29,6 +31,15 @@
             <ul class="nav nav-pills nav-stacked">
               <li><a data-name="Main" href="?room=Main">Main</a></li>
             </ul>
+<!-- try:
+  <div class="fileinput fileinput-new" data-provides="fileinput">
+  <div class="input-group">
+    <div class="form-control" data-trigger="fileinput"><i class="glyphicon glyphicon-file fileinput-exists"></i> <span class="fileinput-filename"></span></div>
+    <span class="input-group-addon btn btn-default btn-file"><span class="fileinput-new">Select file</span><span class="fileinput-exists">Change</span><input type="file" name="file"></span>
+    <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+  </div>
+</div>
+-->
             <div class="uploadFile">
               <form action="upload.php" method="post" enctype="multipart/form-data">
                 <h3>Group Chatbot</h3>
