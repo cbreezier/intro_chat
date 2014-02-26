@@ -35,7 +35,7 @@ for botname in os.listdir(botdir):
 
     connection = sqlite3.connect("messages.db")
     cursor = connection.cursor()
-    newMessage2 = {"user": botname, "message": stdout, "timestamp": datetime.datetime.now()}
+    newMessage2 = {"user": "<span class=\"bot\">{}</span>".format(botname[:-3]), "message": stdout, "timestamp": datetime.datetime.now()}
     cursor.execute("INSERT INTO messages VALUES(?);", (pickle.dumps(newMessage2),))
 
     connection.commit()
