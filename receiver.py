@@ -20,7 +20,7 @@ newMessage = {"user": postvars["user"], "message": postvars["message"], "timesta
 cursor.execute("INSERT INTO messages VALUES(?);", (pickle.dumps(newMessage),))
 
 time.sleep(0.1) # to get greater timestamp
-newMessage2 = {"user": "pythonbot", "message": "{} is a retard".format(postvars["user"]), "timestamp": datetime.datetime.now()}
+newMessage2 = {"user": "pythonbot", "message": "%s is a retard" % postvars["user"], "timestamp": datetime.datetime.now()}
 cursor.execute("INSERT INTO messages VALUES(?);", (pickle.dumps(newMessage2),))
 
 connection.commit()
