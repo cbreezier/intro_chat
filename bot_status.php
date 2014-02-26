@@ -10,7 +10,7 @@
     if (in_array($clientBot['name'], $bots)) {
       // In array, check if updated
       if ($clientBot['time'] != filectime("chatbots/".$clientBot['name'])) {
-        $botInfo = array('name' => $clientBot['name'], 'time' => filectime("chatbots/".$bot), 'status' => 'updated');
+        $botInfo = array('name' => $clientBot['name'], 'time' => filectime("chatbots/".$clientBot['name']), 'status' => 'updated');
         $returnList[] = $botInfo;
       }
     } else {
@@ -36,7 +36,7 @@
       continue;
     }
     if (!in_client_bot_list($bot, $clientBotList)) {
-      $botInfo = array('name' => $bot, 'time' => filectime("chatbots/".$bot), 'status' => 'new');
+      $botInfo = array('name' => $bot, 'time' => filectime("chatbots/".$bot), 'status' => $clientBotList ? 'new':'first');
       $returnList[] = $botInfo;
     }
   }

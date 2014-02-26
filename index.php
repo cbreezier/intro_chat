@@ -26,7 +26,7 @@
         <div class="col-sm-3">
           <div id="botList">
             <ul class="nav nav-pills nav-stacked">
-              <li><a href="?room=Main">Main</a></li>
+              <li><a data-name="Main" href="?room=Main">Main</a></li>
             </ul>
             <div id="uploadFile">
               <form action="upload.php" method="post" enctype="multipart/form-data">
@@ -80,15 +80,14 @@
       function markActiveBotList() {
         $("#botList li").removeClass('active');
         $("#botList a").filter(function () {
-          return $(this).text() === room;
+          return $(this).data('name') === room;
         }).parent().addClass('active');
       }
 
       function updateBotList() {
-        console.log('Updating bot list');
         var botList = [];
         $("#botList a").each(function () {
-          var name = $(this).text();
+          var name = $(this).data('name');
           var time = $(this).data('time');
           if (name == 'Main') {
             return;
@@ -101,21 +100,24 @@
             botList.forEach(function (bot) {
               if (bot.status == 'deleted') {
                 $("#botList a").filter(function () {
-                  return $(this).text() === bot.name;
+                  return $(this).data('name') === bot.name;
                 }).parent().remove();
               }
               if (bot.status == 'updated') {
                 $("#botList a").filter(function () {
-                  return $(this).text() === bot.name;
-                }).data('time', bot.time);
+                  return $(this).data('name') === bot.name;
+                }).data('time', bot.time).empty().append(bot.name+'<span class="badge pull-right">Updated</span>');
               }
               if (bot.status == 'new') {
-                $("#botList ul").append('<li><a data-time="'+bot.time+'" href="?room='+bot.name+'">'+bot.name+'</a></li>');
+                $("#botList ul").append('<li><a data-time="'+bot.time+'" data-name="'+bot.name+'" href="?room='+bot.name+'">'+bot.name+'<span class="badge pull-right">New</span></a></li>');
+              }
+              if (bot.status == 'first') {
+                $("#botList ul").append('<li><a data-time="'+bot.time+'" data-name="'+bot.name+'" href="?room='+bot.name+'">'+bot.name+'</a></li>');
               }
             });
           }
           markActiveBotList();
-          setTimeout(updateBotList, 5000);
+          setTimeout(updateBotList, 1000);
         });
       }
 
