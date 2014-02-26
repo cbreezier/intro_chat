@@ -135,9 +135,9 @@
       }
 
       function checkMessages() {
-        var num_messages = $(".message").length;
-        console.log('Checking for new messages - current messages:', num_messages);
-        $.post("sender.py", {room: room, num_messages: num_messages}, function (data) {
+        var last_message = $(".message:first-child").data('time') || '';
+        console.log('Checking for new messages - last message:', last_message);
+        $.post("sender.py", {room: room, last_message: last_message}, function (data) {
           if (data == 'No new messages') {
             console.log('No new messages\n');
           } else {
@@ -145,7 +145,7 @@
             var messages = JSON.parse(data);
             console.log('Received', messages.length, 'new messages\n');
             messages.forEach(function (message) {
-              $("#messages").prepend('<div class="message"><i>('+message.message_time+') </i><b>'+message.user+': </b>'+message.message+'</div>');
+              $("#messages").prepend('<div class="message" data-time="'+message.message_time+'"><i>('+message.message_time+') </i><b>'+message.user+': </b>'+message.message+'</div>');
             });
           }
           checkMessages();
