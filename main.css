@@ -8,6 +8,13 @@ body {
   padding: 10px;
   overflow-y: scroll;
 }
+.message {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+.bot {
+  color: blue;
+}
 
 .bot-list {
   padding-top: 80px;
