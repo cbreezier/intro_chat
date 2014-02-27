@@ -5,6 +5,8 @@
     $folder = 'chatbots/';
   } else if ($_POST['chatbot_type'] == 'text_game') {
     $folder = 'text_game/';
+  } else if ($_POST['chatbot_type'] == 'graphical') {
+    $folder = 'graphical/';
   } else {
     $message = "<b>Error:</b> Chatbot type not specified - this is not your fault we screwed up.";
   }

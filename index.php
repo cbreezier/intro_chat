@@ -56,6 +56,15 @@
                 <button type="submit" class="btn btn-primary">Upload</button>
               </form>
             </div>
+            <div class="uploadFile">
+              <form action="upload.php" method="post" enctype="multipart/form-data">
+                <h3>Graphical Game</h3>
+                <input type="hidden" name="chatbot_type" value="graphical"></input>
+                <input type="file" name="file"></input>
+                <br>
+                <button type="submit" class="btn btn-primary">Upload</button>
+              </form>
+            </div>
             <a href="notes.html">Need some pointers to make your own chatbot?</a>
           </div>
         </div>
