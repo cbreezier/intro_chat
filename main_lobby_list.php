@@ -2,6 +2,9 @@
   $clientBotList = $_POST['bot_list'] ? $_POST['bot_list']:array();
   function array_in_array($arr1, $arr2) {
     foreach ($arr1 as $item) {
+      if ($item == '.' || $item == '..') {
+        continue;
+      }
       if (!in_array($item, $arr2)) {
         return false;
       }
@@ -13,7 +16,7 @@
   while ($attempts < 20) {
     $bots = scandir("group_chatbots");
 
-    if (sizeof($bots) !== sizeof($clientBotList) || !array_in_array($bots, $clientBotList)) {
+    if (sizeof($bots) !== sizeof($clientBotList) + 2 || !array_in_array($bots, $clientBotList)) {
       break;
     }
     sleep(1);

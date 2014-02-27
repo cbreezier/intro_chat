@@ -144,19 +144,22 @@
         $(".mainLobbyBot").each(function () {
           botList.push($(this).text());
         });
-        $('#mainLobbyList').load("main_lobby_list.php", {bot_list: botList}, function () {
+        console.log(botList);
+        $('#mainLobbyList').load("main_lobby_list.php", {bot_list: botList}, function (data) {
+          console.log(data);
           updateMainLobbyList();
         });
       }
 
       function checkMessages() {
         var last_message = $(".message:last-child").data('time') || '';
-        // console.log('Checking for new messages - last message:', last_message);
+        var last_message_str = $(".message:last-child").text();
+        console.log('Checking for new messages - last message:', last_message, last_message_str);
         $.post("sender.py", {room: room, last_message: last_message}, function (data) {
           if (data == 'No new messages') {
             // console.log('No new messages\n');
           } else {
-            // console.log('Raw message data:', data);
+            console.log('Raw message data:', data);
             var messages = JSON.parse(data);
             // console.log('Received', messages.length, 'new messages\n');
             messages.forEach(function (message) {
