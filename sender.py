@@ -21,10 +21,10 @@ slept = 0
 returnedMessages = []
 
 while not returnedMessages and slept < 50:
-    dateTimeFormat = "%I:%M:%S.%f %d/%m/%y"
+    dateTimeFormat = "%H:%M:%S.%f %d/%m/%y"
     for object in cursor.execute("SELECT object FROM messages"):
         message = pickle.loads(str(object[0]))
-        if not "last_message" in postvars or message["timestamp"] > datetime.datetime.strptime(postvars["last_message"].value, dateTimeFormat):     
+        if not "last_message" in postvars or message["timestamp"] > datetime.datetime.strptime(postvars["last_message"].value, dateTimeFormat):
             message["message_time"] = message["timestamp"].strftime(dateTimeFormat)
             message.pop("timestamp")
             returnedMessages.append(message)
