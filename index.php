@@ -16,6 +16,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap -->
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/3.1.0/css/jasny-bootstrap.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/3.1.0/js/jasny-bootstrap.min.js"></script>
     <link rel="stylesheet" href="main.css">
 
     <script src="https://code.jquery.com/jquery.js"></script>
@@ -30,7 +32,6 @@
             <ul class="nav nav-pills nav-stacked">
               <li><a data-name="Main" href="?room=Main">Main</a></li>
             </ul>
-            -->
             <div class="uploadFile">
               <form action="upload.php" method="post" enctype="multipart/form-data">
                 <h3>Group Chatbot</h3>
@@ -110,7 +111,7 @@
           $("#message").val('');
 
           $.post("receiver.py", {room: room, user: '<?=$user?>', message: message}, function (data) {
-            // console.log(data);
+            // $("body").append(data);
           });
         }
       });
@@ -179,7 +180,7 @@
           if (data == 'No new messages') {
             // console.log('No new messages\n');
           } else {
-            console.log('Raw message data:', data);
+            // console.log('Raw message data:', data);
             var messages = JSON.parse(data);
             // console.log('Received', messages.length, 'new messages\n');
             messages.forEach(function (message) {

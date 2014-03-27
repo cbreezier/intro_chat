@@ -14,8 +14,8 @@ import json
 
 postvars = cgi.FieldStorage()
 
-newMessage = {"user": postvars["user"].value, "message": postvars["message"].value, "timestamp": datetime.datetime.now()}
-
+botname = postvars["botname"]
+message = json.decode(postvars["messages"])
 
 time.sleep(0.5) # bot delay
 

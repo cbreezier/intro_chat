@@ -14,7 +14,7 @@
   <body>
     <div class="container">
       <h1>Notes</h1>
-      <p class="lead">
+      <p class="lead" style="margin-bottom:60px">
         Want to write your own chatbot that will interact with humans and other chatbots? Look no further! We've set everything up and all <b>you</b> need to do is pick up these easy basics and start coding the best chatbot ever.
       </p>
 
@@ -29,12 +29,222 @@
         It's easiest to learn through observation and practice so let's jump into some examples.
       </p>
       <pre class="prettyprint linenums">
-        name = 'John'
-        age = 3
-        height = 7.89
-        if (x in range(10)):
-            # do something
+name = 'John'
+age = 3
+height = 7.89
+if (x in range(10)):
+   # do something</pre>
+      
+      <h3>Print</h3>
+      <p>The print statement does exactly what you think it does! It prints anything you want the shell to print. For example:</p>
+      <pre class="prettyprint linenums">
+>>>print "Hello world!"
+Hello world!
+>>> print "Remember to place inverted commas around whatever text you want to print"
+Remember to place inverted commas around whatever text you want to print
+>>> print forgetting the inverted commas would give you a nasty surprise...
+SyntaxError: invalid syntax</pre>
+      <p>(On a side note, a syntax error just means that there is something wrong with your code because you haven't written it with the correct expressions, or used the correct punctuation. Getting errors are a big part of learning, because you can then learn from your mistakes!)</p>
+      <h3>Variables</h3>
+      <p>Computers would be pretty boring if all they could only print. That's why we have variables! A variable can be thought of as a box - it can store a value that changes.</p>
+      <p>Creating a variable is simple.</p>
+      <pre class="prettyprint linenums">
+>>>name = "John"
+>>>age = 3
+>>>height = 70
+
+>>>print name
+John
+>>>print age
+3
+>>>print height
+70</pre>
+      <p>The same notation is used to change a variable.</p>
+      <pre class="prettyprint linenums">
+>>>name = "John"
+>>>print name
+John
+>>>name = "Bill"
+>>>print name
+Bill</pre>
+      <p>There are different types of variables. For example, the variable name is a string (a letter or a word). The variables age and height are both integers (numbers).</p>
+      <p>Be careful with inverted commas! If you use them, Python will print out exactly what is in between the inverted commas, rather than the variable.</p>
+      <pre class="prettyprint linenums">
+>>>day = Thursday
+>>>print "day"
+day
+>>>print day
+Thursday</pre>
+      <h3>Operators</h3>
+      <p>Python can be very useful for mathematical calculations, such as addition, subtraction, multiplication and division. </p>
+      <pre class="prettyprint linenums">
+>>>print 1+2
+3
+>>>print 3*4
+12
+>>> a = 6
+>>> b = 3
+>>> print a+b
+9
+>>> print a-b
+3
+>>> print b-a
+-6
+>>> print a*b
+18
+>>> print a/b
+2
+>>> print b/a
+0</pre>
+      <p>How do you explain this!? 3/6 = 0.5, not 0, so why is this happening?</p>
+      <p>An integer is a whole number. So if you divide an integer by another integer and obtain a fraction, decimal, or something that is not a whole number, the shell rounds it down to the nearest whole number. </p>
+      <pre class="prettyprint linenums">
+>>> 9/3
+3
+>>> 10/3
+3
+>>> 11/3
+3
+>>> 12/3
+4</pre>
+      <p>Once again, be careful with inverted commas!</p>
+      <pre class="prettyprint linenums">
+>>> x = 10
+>>> y = 5
+>>> print x-y
+5
+>>> print "x-y"
+x-y
+>>> print "x"+y
+TypeError: unsupported operand type(s) for -: 'str' and 'int'</pre>
+      <p>The inverted commas around "x" turn it into a string (or word).</p>
+      <p>Does it make sense to subtract 5 from "x"? </p>
+      <pre class="prettyprint linenums">
+>>>print "Thursday" - y</pre>
+      <p>This is another example of adding a string to an integer.</p>
+      <p>Does it make sense to subtract 5 from Thursday?</p>
+      <h3>Concatenation of Strings</h3>
+      <p>Concatenate is just a fancy way of saying "joining together". Observe the following examples.</p>
+      <pre class="prettyprint linenums">
+>>> print "I like cats"
+I like cats
+>>> print "I like" + "cats"
+I likecats
+>>> print "I like" + " cats"
+I like cats</pre>
+      <p>It also works with variables!</p>
+      <pre class="prettyprint linenums">
+>>> animal = "dogs"
+>>> print "I like " + animal
+I like dogs
+>>> animal = "rabbits"
+>>> print "I like " + animal
+I like rabbits
+>>>colour = “blue”
+>>>print “I like” + colour + rabbits
+I like bluerabbits
+>>>print “I like” + colour + “ “ + rabbits
+I like blue rabbits</pre>
+      <p>Similar to how mathematical operators can only be used on integers, string concatenation can only be done on strings. Notice how string concatenation uses the plus sign? This can get confusing since you're using the same symbol to add numbers and join words.</p>
+      <pre class="prettyprint linenums">
+      >>> y = 5
+      >>> print "orange"+y
+      Traceback (most recent call last):
+      File "&lt; pyshell#71&gt;", line 1, in &lt;module&gt;
+      print "orange"+y
+      TypeError: cannot concatenate 'str' and 'int' objects</pre>
+      <p>This is the same example from before. Does it make sense to add “orange” and 5? No, you can only add numbers together. But what Python is really trying to do here is to concatenate, or join “orange” and 5, as you can see from the error message.</p>
+      <p>So, does it make sense to join "orange" and 5? You might expect it to print “orange5”, but it gives you the error message instead. This is because it will only join strings together. Compare the following examples.</p>
+      <pre class="prettyprint linenums">
+>>>x = 5
+>>>print "apple" + x
+TypeError: cannot concatenate 'str' and 'int' objects
+
+>>>x = "5"
+>>>print "apple" + x
+apple5
       </pre>
+      <p>While this solution works, it can present some problems. What if you needed to use mathematical operations on x?</p>
+      <pre class="prettyprint linenums">
+>>>x = "10"
+>>>print "x + 5 is " + x + 5
+TypeError: cannot concatenate 'str' and 'int' objects
+>>>print "x+5 is " + (x+5)
+TypeError: cannot concatenate 'str' and 'int' objects
+      </pre>
+      <p>Addition will only work if x is an integer. So we need x to be an integer when we are using it for maths, and for it to be a string when we are trying to print it. This can be done by typecasting.</p>
+      <pre class="prettyprint linenums">
+>>>x = 10
+>>> print "x + 5 is " + str(x+5)
+x + 5 is 15</pre>
+      <p>str is short for string. str() simply turns everything inside the brackets into a string. So first Python calculates x + 5. Then it turns the result into a string. And finally it concatenates the two strings together and prints them.</p>
+      <h3>Raw Input</h3>
+      <p>This allows the program to take in input from the user.</p>
+      <pre class="prettyprint linenums">
+>>>print "What is your name?"
+>>> raw_input()
+Cassius
+'Cassius'</pre>
+      <p>This becomes more useful when you use it with variables.</p>
+      <pre class="prettyprint linenums">
+>>>print "What day is it today?"
+>>>day = raw_input()
+Friday
+>>>print "Today is " + day
+What day is it today?
+Thursday
+Today is Thursday</pre>
+      <p>The user input is a string by default. This can cause some issues. The program below is meant to multiply the user’s number by five.</p>
+      <pre class="prettyprint linenums">
+>>>print "Enter your number:"
+>>> number = raw_input()
+>>> print number*5
+Enter your number:
+15
+1515151515
+      </pre>
+      <p>Oh no! It treated the variable number as a string, and interpreted "print number*5 " as "print number five times".</p>
+      <p>We can get around this problem by typecasting. Simply add int( ) around the raw_input, and it will convert it from a string to an integer.</p>\
+      <pre class="prettyprint linenums">
+>>>print "Enter your number:"
+>>> number = int(raw_input())
+>>> print number*5</pre>
+      <p>Another solution is:</p>
+      <pre class="prettyprint linenums">
+>>>print "Enter your number:"
+>>> number = raw_input()
+>>> print int(number)*5
+      </pre>
+      <h3>If statements</h3>
+      <p>If statements in code work similarly to if statements in normal English. For example, let’s say we want to write a difficult mathematical quiz program.</p>
+      <pre class="prettyprint linenums">
+>>>What is 1 + 2?
+>>>answer = raw_input()
+>>> if answer == 3:
+print "correct!"</pre>
+      <p>If the variable “answer” is equal to 3, print “correct!”</p>
+      <p>Note that if statements require a double equals sign (==).</p>
+      <p>Whenever you have a = sign, it means you are assigning a value to a variable.</p>
+      <p>Whenever you have a == sign, it means you are seeing whether something is True or False.</p>
+      <h3>Else statements</h3>
+      <p>The program above will only print if the user answers 3. To get it to print in all cases, we can use an else statement.</p>
+      <pre class="prettyprint linenums">
+>>>What is 1 + 2?
+>>>answer = raw_input()
+>>> if answer == 3:
+   print "correct!"
+else:
+   print "incorrect!"</pre>
+      <p>Other comparisons you can use are:</p>
+      <ul>
+         <li><b>!=</b> not equal to</li>
+         <li><b>&gt;</b> greater than</li>
+         <li><b>&gt;=</b> greater than or equal to</li>
+         <li><b>&lt;</b> less than</li>
+         <li><b>&lt;=</b> less than or equal to</li>
+      </ul>
+      <h3>And, or</h3>
+      <h3>Elif</h3>
     </div>
   </body>
 </html>
