@@ -18,7 +18,8 @@
       // echo "Type: " . $_FILES["file"]["type"] . "<br>";
       // echo "Size: " . ($_FILES["file"]["size"] / 1024) . " kB<br>";
       // echo "Stored in: " . $_FILES["file"]["tmp_name"];
-      $extension = end(explode(".", $_FILES["file"]["name"]));
+      $extension = explode(".", $_FILES["file"]["name"]);
+      $extension = end($extension);
       if ($extension !== 'py') {
         $message = "You must upload a valid .py file, not a ".$_FILES["file"]["type"]." .".$extension." file. Please try again.<br>";
       } else {

@@ -1,5 +1,5 @@
 <?php
-  $clientBotList = $_POST['bot_list'] ? $_POST['bot_list']:array();
+  $clientBotList = isset($_POST['bot_list']) ? $_POST['bot_list']:array();
   function in_client_bot_list($bot, $list) {
     foreach ($list as $item) {
       $item = (array) $item;
