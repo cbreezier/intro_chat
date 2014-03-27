@@ -41,6 +41,7 @@
                 <button type="submit" id="btnUpload" class="btn btn-primary">Upload</button>
               </form>
             </div>
+            -->
             <!-- <div class="uploadFile">
               <form action="upload.php" method="post" enctype="multipart/form-data">
                 <h3>One on One Chatbot</h3>
@@ -49,7 +50,8 @@
                 <br>
                 <button type="submit" class="btn btn-primary">Upload</button>
               </form>
-            </div> 
+            </div>
+            -->
             <div class="uploadFile">
               <form action="upload.php" method="post" enctype="multipart/form-data">
                 <h3>Text Game</h3>
@@ -59,6 +61,7 @@
                 <button type="submit" class="btn btn-primary">Upload</button>
               </form>
             </div>
+            <!--
             <div class="uploadFile">
               <form action="upload.php" method="post" enctype="multipart/form-data">
                 <h3>Graphical Game</h3>

@@ -40,7 +40,7 @@
               messages.push($(this).text());
             });
             
-            console.log(messages);
+            console.log(JSON.stringify(messages));
 
             $.post("receiverT.py", {botname: game, messages: JSON.stringify(messages)}, function (data) {
               console.log(data);
