@@ -44,7 +44,7 @@
 
             //$.post("receiver.py", {botname: game, messages: messages}, function (data) {
             //  console.log(data);
-            //  $("#messages").append('<div class="botInput">'+data+'</div>');
+            //  $("#messages").append('<div style="color: blue;" class="botInput">'+data+'</div>');
             //});
           }
         });
