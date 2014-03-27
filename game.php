@@ -42,7 +42,7 @@
             
             console.log(messages);
 
-            $.post("receiverT.py", {botname: game, messages: messages}, function (data) {
+            $.post("receiverT.py", {botname: game, messages: JSON.stringify(messages)}, function (data) {
               console.log(data);
               $("#messages").append('<div style="color: blue;" class="botInput">'+data+'</div>');
             });
