@@ -42,10 +42,10 @@
             
             console.log(messages);
 
-            //$.post("receiver.py", {botname: game, messages: messages}, function (data) {
-            //  console.log(data);
-            //  $("#messages").append('<div style="color: blue;" class="botInput">'+data+'</div>');
-            //});
+            $.post("receiverT.py", {botname: game, messages: messages}, function (data) {
+              console.log(data);
+              $("#messages").append('<div style="color: blue;" class="botInput">'+data+'</div>');
+            });
           }
         });
       </script>
