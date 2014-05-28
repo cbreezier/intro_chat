@@ -18,7 +18,7 @@
           <h3>Upload your bouncing ball!</h3>
           <p>Make sure that your file has a <b>unique name</b>! Uploading a file with the same name will <b>overwrite</b> the previously uploaded file!</p>
           <input type="hidden" name="chatbot_type" value="bouncingball"></input>
-          <input type="file" name="file"></input>
+          <input type="file" name="file" onchange="checkExists(this)"></input>
           <br>
           <button type="submit" class="btn btn-primary">Upload</button>
         </form>
@@ -31,9 +31,31 @@
       </div>
     </div>
     <script>
+      function checkExists(file) {
+        var filename = file.value.split('\\').slice(-1);
+        console.log(filename);
+        var exists = false;
+        for (ball in balls) {
+          if (ball == filename) {
+            exists = true;
+            break;
+          }
+        }
+        if (exists) {
+          window.confirm("This will overwrite " + ball + ", are you sure you want to continue?");
+        }
+      }
+
+      var balls = {};
       function updateBalls() {
-        $('#bouncingBallList').load("bouncing_list.php", {}, function (data) {
-          console.log(data);
+        $.post("bouncing_list.php", {}, function (data) {
+          balls = JSON.parse(data);
+          console.log(balls);
+
+          $('#bouncingBallList').html('<h3>Current bouncing balls</h3>');
+          for (ball in balls) {
+            $('#bouncingBallList').append('<span class="ball">'+ball+' has bounced '+balls[ball]+' times</span><br>');
+          }
         });
       }
 
