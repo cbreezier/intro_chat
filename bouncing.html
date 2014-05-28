@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="main.css">
+
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <title>Bounce!</title>
+  </head>
+  <body>
+    <div class="container">
+      <h1 style="text-align: center;">Bouncing Balls!</h1><br>
+      <div class="uploadFile">
+        <form action="upload.php" method="post" enctype="multipart/form-data">
+          <h3>Upload your bouncing ball!</h3>
+          <p>Make sure that your file has a <b>unique name</b>! Uploading a file with the same name will <b>overwrite</b> the previously uploaded file!</p>
+          <input type="hidden" name="chatbot_type" value="bouncingball"></input>
+          <input type="file" name="file"></input>
+          <br>
+          <button type="submit" class="btn btn-primary">Upload</button>
+        </form>
+      </div>
+
+      <br><br>
+
+      <div id="bouncingBallList">
+        <h3>Current bouncing balls</h3>
+      </div>
+    </div>
+    <script>
+      function updateBalls() {
+        $('#bouncingBallList').load("bouncing_list.php", {}, function (data) {
+          console.log(data);
+        });
+      }
+
+      $(document).ready(function() {
+        setInterval(updateBalls, (1 * 1000));
+      });
+    </script>
+  </body>
+</html>

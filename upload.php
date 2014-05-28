@@ -1,14 +1,22 @@
 <?php
-  if ($_POST['chatbot_type'] == 'group') {
-    $folder = 'group_chatbots/';
-  } else if ($_POST['chatbot_type'] == 'single') {
-    $folder = 'chatbots/';
-  } else if ($_POST['chatbot_type'] == 'text_game') {
-    $folder = 'text_game/';
-  } else if ($_POST['chatbot_type'] == 'graphical') {
-    $folder = 'graphical/';
+  $fromPage = "index.php";
+  if (isset($_POST['chatbot_type'])) {
+    if ($_POST['chatbot_type'] == 'group') {
+      $folder = 'group_chatbots/';
+    } else if ($_POST['chatbot_type'] == 'single') {
+      $folder = 'chatbots/';
+    } else if ($_POST['chatbot_type'] == 'text_game') {
+      $folder = 'text_game/';
+    } else if ($_POST['chatbot_type'] == 'graphical') {
+      $folder = 'graphical/';
+    } else if ($_POST['chatbot_type'] == 'bouncingball') {
+      $folder = 'bouncingball/';
+      $fromPage = "bouncing.html";
+    } else {
+      $message = "<b>Error:</b> Chatbot type unrecognized - this is not your fault we screwed up.";
+    }
   } else {
-    $message = "<b>Error:</b> Chatbot type not specified - this is not your fault we screwed up.";
+    $message = "<b>Error:</b> Refreshing this page does nothing.";
   }
   if (isset($folder)) {
     if ($_FILES["file"]["error"] > 0) {
@@ -45,7 +53,7 @@
       <h1>Upload File Page</h1>
       <p class="lead"><?=$message?></p>
       <br>
-      <a href="index.php">Return to chat</a>
+      <a href="<?=$fromPage;?>">Return</a>
     </div>
   </body>
 </html>
