@@ -12,6 +12,25 @@
     } else if ($_POST['chatbot_type'] == 'bouncingball') {
       $folder = 'bouncingball/';
       $fromPage = "bouncing.html";
+      $bouncecount = file_get_contents("bouncingball/count.txt");
+      foreach (explode("\n", $bouncecount) as $line) {
+        $info = explode(' ', $line);
+        if (strlen($line) > 0) {
+          $count[$info[0]] = intval($info[1]);
+        }
+      }
+      $filename = $_FILES["file"]["name"];
+      if (isset($count[$filename])) {
+        $count[$filename]++;
+      } else {
+        $count[$filename] = 1;
+      }
+
+      $newfilecontents = "";
+      foreach (array_keys($count) as $key) {
+        $newfilecontents .= $key." ".$count[$key]."\n";
+      }
+      file_put_contents("bouncingball/count.txt", $newfilecontents);
     } else {
       $message = "<b>Error:</b> Chatbot type unrecognized - this is not your fault we screwed up.";
     }

@@ -49,12 +49,13 @@
       var balls = {};
       function updateBalls() {
         $.post("bouncing_list.php", {}, function (data) {
+          console.log(data);
           balls = JSON.parse(data);
           console.log(balls);
 
           $('#bouncingBallList').html('<h3>Current bouncing balls</h3>');
           for (ball in balls) {
-            $('#bouncingBallList').append('<span class="ball">'+ball+' has bounced '+balls[ball]+' times</span><br>');
+            $('#bouncingBallList').append('<span class="ball">'+ball+' v'+balls[ball]+'</span><br>');
           }
         });
       }

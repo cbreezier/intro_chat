@@ -1,9 +1,11 @@
 <?php
   $balls = scandir("bouncingball");
   $bouncecount = file_get_contents("bouncingball/count.txt");
-  foreach (explode(PHP_EOL, $bouncecount) as $line) {
+  foreach (explode("\n", $bouncecount) as $line) {
     $info = explode(' ', $line);
-    $count[$info[0]] = intval($info[1]);
+    if (strlen($line) > 0) {
+      $count[$info[0]] = intval($info[1]);
+    }
   }
   foreach ($balls as $ball) {
     if ($ball == '.' || $ball == '..' || !preg_match('/^.*\.py$/', $ball)) {
